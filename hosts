@@ -1,0 +1,16 @@
+# Enter the hosts or devices for Ansible playbooks
+# city_center ansible_user=cisco ansible_password=cisco123 ansible_host=192.168.122.100
+
+[edge_routers]
+city_north ansible_host=192.168.122.50
+city_center ansible_host=192.168.122.100
+city_south ansible_host=192.168.122.150
+
+[all:vars]
+ansible_user=cisco
+ansible_password=cisco123
+
+[vtp switches]
+#city_north ansible_host=192.168.122.50
+#city_center ansible_host=192.168.122.100
+#city_south ansible_host=192.168.122.150

@@ -1,0 +1,31 @@
+---
+- name: Review and backup config
+  hosts: edge_routers
+  gather_facts: true
+  connection: local
+
+  tasks:
+    - name: Show run-config
+      ios_command:
+       commands:
+       - show running-config
+       - show ip interface brief
+      register: output
+
+    - name: print output
+      debug:
+        var: output.stdout_lines
+
+    - name: save output
+      copy:
+        content: "{{ output.stdout[0] }}"
+        dest: "backups/show_run_{{ inventory_hostname }}.txt"
+
+    - name: configure logging host
+      ios_config:
+        lines: logging host 192.168.122.5
+      register: logged
+
+    - name: print logged
+      debug:
+        var: logged
